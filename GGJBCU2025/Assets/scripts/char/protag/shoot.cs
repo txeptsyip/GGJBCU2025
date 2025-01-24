@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class shoot : MonoBehaviour
 {
     float fireRate = 0;
+    float fireDelay = 0.5f;
     public Rigidbody projectile;
     public Transform gunBarrel;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -14,7 +16,7 @@ public class shoot : MonoBehaviour
     void Shoot()
     {
         if (Time.time < fireRate) return;
-        fireRate = Time.time + 0.5f;
+        fireRate = Time.time + fireDelay;
         Instantiate(projectile, transform.position, transform.rotation);
     }
 
