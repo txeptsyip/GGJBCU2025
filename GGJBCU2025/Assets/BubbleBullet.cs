@@ -22,7 +22,7 @@ public class BubbleBullet : MonoBehaviour
     void Update()
     {
        
-        if (Input.GetKeyDown(KeyCode.Space) == true) 
+        if (Input.GetKeyDown(KeyCode.F) == true) 
         {
 
             Projectile();
@@ -32,7 +32,8 @@ public class BubbleBullet : MonoBehaviour
 
     public void Projectile()
     {
-        Instantiate(BubblePrefab);
+        BubblePrefab.transform.position = Spawner.transform.position;
+        
         rb.AddForce(Force_X, 0, 0);
     }
 }
