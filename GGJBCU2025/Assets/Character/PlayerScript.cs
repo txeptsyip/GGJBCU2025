@@ -75,7 +75,7 @@ public class PlayerScript: MonoBehaviour
 
     public IEnumerator PowerUpTimer()
     {
-        yield return new WaitForSeconds(30);
+        yield return new WaitForSeconds(10);
         RapidFireActive = false;
         ShotBubbleActive = false ;
         StopCoroutine(PowerUpTimer());
@@ -159,7 +159,7 @@ public class PlayerScript: MonoBehaviour
         if (Time.time > fireDelay)
         {
             // Ctrl was pressed, launch a projectile
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (RapidFireActive == true)
                 {

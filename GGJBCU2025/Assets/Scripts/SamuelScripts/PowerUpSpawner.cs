@@ -32,7 +32,7 @@ public class PowerUpSpawner : MonoBehaviour
                 Map.SpawnPU((int)pos.x, (int)pos.y, Height);
             }
 
-            yield return new WaitForSeconds(Random.Range(20,50));
+            yield return new WaitForSeconds(Random.Range(20,40));
         }
     }
 }
