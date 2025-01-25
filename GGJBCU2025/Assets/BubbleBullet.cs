@@ -40,6 +40,14 @@ public class BubbleBullet : MonoBehaviour
         {
             collision.gameObject.GetComponent<PlayerScript>().Damage(damage);
             Destroy(gameObject);
+
         }
+        else if (collision.gameObject.CompareTag("Player2"))
+        {
+            collision.gameObject.GetComponent<Player2Script>().Damage(damage);
+            Destroy(gameObject);
+
+        }
+
     }
 }
