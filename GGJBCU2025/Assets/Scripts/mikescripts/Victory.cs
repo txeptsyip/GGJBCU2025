@@ -16,7 +16,6 @@ public class Victory : MonoBehaviour
     {
         players.Add(new Player { player = GameObject.FindGameObjectWithTag("Player") });
         players.Add(new Player { player = GameObject.FindGameObjectWithTag("Player2") });
-        Debug.Log(players.Count);
     }
     bool called = false;
     void victory()
@@ -26,6 +25,8 @@ public class Victory : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             if (!players[i].alive) continue;
+
+            //Add victory logic here
             Debug.Log(players[i].player.tag + " Wins");
         }
     }
