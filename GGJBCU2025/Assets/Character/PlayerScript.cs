@@ -14,6 +14,17 @@ public class PlayerScript: MonoBehaviour
     public float lookSpeed = 1f;
     public float health = 10f;
 
+
+    public float Speed = 1f;
+    float fireRate = 0;
+    float fireDelay = 0.5f;
+    public Rigidbody projectile;
+    public float Cooldown;
+    public GameObject BubblePrefab;
+    public Transform Spawner;
+
+    private bool PoweupActive = false;
+
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
     float rotationX = 0;
@@ -33,10 +44,27 @@ public class PlayerScript: MonoBehaviour
     public void Damage(float damage)
     {
         health = health - damage;
-        if (health >= 0)
+        Debug.Log(health);
+        if (health <= 0)
         {
+            Debug.Log("the player has died");
             Destroy(gameObject);
         }
+    }
+
+    public void ActivatePowerUp()
+    {
+        PoweupActive = true;
+    }
+
+    void Bubble_Shoot()
+    {
+        if (Time.time < fireRate) return;
+        BubblePrefab.transform.position = Spawner.transform.position;
+        Rigidbody BubbleRb = Instantiate(projectile, new Vector3(Spawner.transform.position.x, Spawner.transform.position.y, Spawner.transform.position.z), Spawner.transform.rotation) as Rigidbody;
+        BubbleRb.AddForce(transform.forward * 300 * Speed); // indicates the direction and level of force
+        fireDelay = Time.time + Cooldown;
+
     }
 
     void Update()
@@ -76,6 +104,16 @@ public class PlayerScript: MonoBehaviour
         {
             //playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, (Input.GetAxis("Horizontal"))/6 * lookSpeed, 0);
+        }
+        if (Time.time > fireDelay)
+        {
+            // Ctrl was pressed, launch a projectile
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                Bubble_Shoot();
+
+            }
+
         }
     }
 }
