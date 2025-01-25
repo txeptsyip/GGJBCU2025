@@ -348,6 +348,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: f6db20a3de5e1f04097982b39093589e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0278b377562592d439c3af78113f8aaa, type: 2}
     - target: {fileID: 919132149155446097, guid: f6db20a3de5e1f04097982b39093589e, type: 3}
       propertyPath: m_Name
       value: 3D Rubber Duck Pack - Duck
