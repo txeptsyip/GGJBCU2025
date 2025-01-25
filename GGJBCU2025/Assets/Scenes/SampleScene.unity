@@ -256,6 +256,33 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &377552573 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3010806230316758919, guid: 897715fc51b03934590aab23e70d28c3, type: 3}
+  m_PrefabInstance: {fileID: 1884133032}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &377552574 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 125430291248395372, guid: 897715fc51b03934590aab23e70d28c3, type: 3}
+  m_PrefabInstance: {fileID: 1884133032}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &377552579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377552573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef67bec36a42e9f41a9bf3e29ee76aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 10
+  projectile: {fileID: 4623812221302528764, guid: 4b415a8991e998e43a31b1c7a181f2a5, type: 3}
+  Cooldown: 1
+  BubblePrefab: {fileID: 8359671636143119422, guid: 4b415a8991e998e43a31b1c7a181f2a5, type: 3}
+  Spawner: {fileID: 377552574}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,6 +1059,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3010806230316758919, guid: 897715fc51b03934590aab23e70d28c3, type: 3}
+      propertyPath: m_Name
+      value: Spawner 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3092299546754215583, guid: 897715fc51b03934590aab23e70d28c3, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -1080,10 +1111,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4925738455497983318, guid: 897715fc51b03934590aab23e70d28c3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3010806230316758919, guid: 897715fc51b03934590aab23e70d28c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 377552579}
   m_SourcePrefab: {fileID: 100100000, guid: 897715fc51b03934590aab23e70d28c3, type: 3}
 --- !u!1 &2015253810
 GameObject:

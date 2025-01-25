@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 
 public class ShootP2 : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class ShootP2 : MonoBehaviour
     public float Cooldown;
     public GameObject BubblePrefab;
     public Transform Spawner;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,14 +31,17 @@ public class ShootP2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Time.time > fireDelay)
         {
             // Ctrl was pressed, launch a projectile
-            if (Input.GetKeyDown(KeyCode.Comma))
+            if (Input.GetAxis("Fire3") > 0.8)
             {
                 Bubble_Shoot();
-
             }
+
+
+            
 
         }
     }
