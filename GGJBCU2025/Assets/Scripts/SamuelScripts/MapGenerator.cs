@@ -149,7 +149,7 @@ public class MapGenerator : MonoBehaviour
     {
         //Create an empty 
         NCells = (int)Size / (int)CELL_SIZE;
-        NCellsW = NCells + 50;
+        NCellsW = NCells + 30;
 
         Map = new MapElement[NCellsW][];
         for (int i = 0; i < NCellsW; i++)
