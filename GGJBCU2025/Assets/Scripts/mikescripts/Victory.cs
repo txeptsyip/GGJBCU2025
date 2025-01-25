@@ -20,7 +20,6 @@ public class Victory : MonoBehaviour
     bool called = false;
     void victory()
     {
-        if (called) return;
         called = true;
         for (int i = 0; i < players.Count; i++)
         {
@@ -34,6 +33,7 @@ public class Victory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (called) return;
         for (int i = 0; i < players.Count; i++)
         {
             if (!players[i].player) { players[i].alive = false; }
