@@ -11,7 +11,7 @@ public class PlayerScript: MonoBehaviour
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
     //public Camera playerCamera;
-    public float lookSpeed = 0.01f;
+    public float lookSpeed = 1f;
 
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
@@ -65,7 +65,7 @@ public class PlayerScript: MonoBehaviour
         if (canMove)
         {
             //playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Horizontal") * lookSpeed, 0);
+            transform.rotation *= Quaternion.Euler(0, (Input.GetAxis("Horizontal"))/6 * lookSpeed, 0);
         }
     }
 }
