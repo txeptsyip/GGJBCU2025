@@ -13,6 +13,9 @@ public class Player2Script: MonoBehaviour
     //public Camera playerCamera;
     public float lookSpeed = 1f;
     public float health = 10f;
+    public bool isController = true;
+    float curSpeedX;
+    float curSpeedY;
 
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
@@ -20,7 +23,7 @@ public class Player2Script: MonoBehaviour
 
     [HideInInspector]
     public bool canMove = true;
-
+   
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -47,10 +50,19 @@ public class Player2Script: MonoBehaviour
         Vector3 right = transform.TransformDirection(Vector3.right);
         // Press Left Shift to run
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
-        float curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("VerticalSticks") : 0;
-        float curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("HorizontalSticks") : 0;
+        if (isController)
+        {
+            curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("VerticalSticks") : 0;
+            curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("HorizontalSticks") : 0;
+
+
+        }
+        else {
+            curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Vertical2") : 0;
+            curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Horizontal2") : 0;
+        }
         float movementDirectionY = moveDirection.y;
-        moveDirection = (forward * curSpeedX) /*+ (right * curSpeedY)*/;
+        moveDirection = (forward * curSpeedY) /*+ (right * curSpeedY)*/;
 
         if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
         {
@@ -76,7 +88,17 @@ public class Player2Script: MonoBehaviour
         if (canMove)
         {
             //playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-            transform.rotation *= Quaternion.Euler(0, (Input.GetAxis("HorizontalSticks"))/6 * lookSpeed, 0);
+            if (isController)
+            {
+                transform.rotation *= Quaternion.Euler(0, (Input.GetAxis("HorizontalSticks")) / 6 * lookSpeed, 0);
+
+
+            }
+
+            else {
+                transform.rotation *= Quaternion.Euler(0, (Input.GetAxis("Horizontal2")) / 6 * lookSpeed, 0);
+
+            }
         }
     }
 }
