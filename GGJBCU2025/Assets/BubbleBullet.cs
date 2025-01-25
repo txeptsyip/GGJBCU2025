@@ -6,6 +6,7 @@ public class BubbleBullet : MonoBehaviour
     //float originalX;
 
     public float floatStrength = 5;
+    public float damage = 1;
 
     private int movement;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,6 +34,11 @@ public class BubbleBullet : MonoBehaviour
            transform.position.z);*/
     }
 
-
-    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<PlayerScript>().Damage(damage);
+        }
+    }
 }

@@ -12,6 +12,7 @@ public class PlayerScript: MonoBehaviour
     public float gravity = 20.0f;
     //public Camera playerCamera;
     public float lookSpeed = 1f;
+    public float health = 10f;
 
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
@@ -27,6 +28,15 @@ public class PlayerScript: MonoBehaviour
         // Lock cursor
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
+    }
+
+    public void Damage(float damage)
+    {
+        health = health - damage;
+        if (health >= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Update()
