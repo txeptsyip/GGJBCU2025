@@ -1,39 +1,38 @@
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BubbleBullet : MonoBehaviour
 {
-    public Rigidbody rb;
-    public float Force_X = 1000f;
-    public Transform Spawner;
-    public GameObject BubblePrefab;
+    [SerializeField] private float lifetime = 3f;
+    //float originalX;
 
+    public float floatStrength = 5;
+
+    private int movement;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space) == true)
-        {
-            Projectile();
-        }
+        lifetime = Time.time + lifetime;
+        // this.originalX = this.transform.position.x;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-       
-        if (Input.GetKeyDown(KeyCode.F) == true) 
-        {
-
-            Projectile();
-        }
+        //wavemotion();
+        if (Time.time > lifetime) {Destroy(gameObject);  Debug.Log("Object destroyed"); }
     }
 
+   
 
-    public void Projectile()
+    private void wavemotion()
     {
-        BubblePrefab.transform.position = Spawner.transform.position;
-        
-        rb.AddForce(Force_X, 0, 0);
+        //ads the wave movement to log by using sin function
+       /* gameObject.transform.position = new Vector3(originalX + ((float)Mathf.Sin() * floatStrength),
+          transform.position.y ,
+           transform.position.z);*/
     }
+
+
+    
 }
