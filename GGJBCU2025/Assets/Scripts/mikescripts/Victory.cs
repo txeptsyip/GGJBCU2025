@@ -7,6 +7,7 @@ public class Player
 {
     public GameObject player;
     public bool alive = true;
+    public int score = 0;
 }
 public class Victory : MonoBehaviour
 {
@@ -17,28 +18,42 @@ public class Victory : MonoBehaviour
         players.Add(new Player { player = GameObject.FindGameObjectWithTag("Player") });
         players.Add(new Player { player = GameObject.FindGameObjectWithTag("Player2") });
     }
-    bool called = false;
-    void victory()
+    bool victoryCalled = false;
+    bool incrementCalled = false;
+    int victoryScore = 2;
+    void victory(int player)
     {
-        called = true;
+        if (players[player].score != victoryScore) return;
+        victoryCalled = true;
+        Debug.Log(players[player].player.tag + " Wins");
+    }
+
+    void incrementScore ()
+    {
+        if (incrementCalled) return;
+        incrementCalled = true;
         for (int i = 0; i < players.Count; i++)
         {
             if (!players[i].alive) continue;
 
-            //Add victory logic here
-            Debug.Log(players[i].player.tag + " Wins");
+            //Add score logic here
+            players[i].score++;
+            victory(i);
+            Debug.Log("The player's score is " + players[i].score.ToString());
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (called) return;
+        if (victoryCalled) return;
         for (int i = 0; i < players.Count; i++)
         {
-            if (!players[i].player) { players[i].alive = false; }
-            else { continue; }
-            victory();
+            if (incrementCalled)
+            {
+                if (!players[i].player) { return; } else { incrementCalled = false; }
+            }
+            if (!players[i].player && !incrementCalled) { players[i].alive = false; incrementScore(); }
         }
     }
 }
