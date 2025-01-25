@@ -21,9 +21,8 @@ public class Shoot : MonoBehaviour
     {
         if (Time.time < fireRate) return;
         BubblePrefab.transform.position = Spawner.transform.position;
-        Rigidbody BubbleRb = Instantiate(projectile,new Vector3(transform.position.x,transform.position.y,transform.position.z), 
-                                                            gameObject.transform.rotation) as Rigidbody;
-        BubbleRb.GetComponent<Rigidbody>().AddForce(transform.up * 500 * Speed); // indicates the direction and level of force
+        Rigidbody BubbleRb = Instantiate(projectile,new Vector3(transform.position.x,transform.position.y,transform.position.z), gameObject.transform.rotation) as Rigidbody;
+        BubbleRb.AddForce(transform.forward * 500 * Speed); // indicates the direction and level of force
         fireDelay = Time.time + Cooldown;
 
     }
