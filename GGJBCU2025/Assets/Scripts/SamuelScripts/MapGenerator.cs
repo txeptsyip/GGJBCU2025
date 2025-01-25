@@ -46,6 +46,12 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     private GameObject Player2;
 
+    [SerializeField]
+    private GameObject piece;
+
+    [SerializeField]
+    private Transform PiecesParent;
+
     private float RANDOM;
 
     public enum MapElement { Ground, Mountain, PlayerStart };
@@ -283,16 +289,16 @@ public class MapGenerator : MonoBehaviour
         return Spawn(x, y, FLOOR_HEIGHT, obj, ObstaclesParent);
     }
 
-    //public GameObject SpawnPiece(int x, int y, float height)
-    //{
-    //    return Spawn(x, y, height, piece, PiecesParent);
-    //}
+    public GameObject SpawnPU(int x, int y, float height)
+    {
+        return Spawn(x, y, height, piece, PiecesParent);
+    }
 
-    //public GameObject SpawnPiece(Vector3 pos)
-    //{
-    //    Quaternion rot = Quaternion.identity;
-    //    return Instantiate(piece, pos, rot, PiecesParent);
-    //}
+    public GameObject SpawnPU(Vector3 pos)
+    {
+        Quaternion rot = Quaternion.identity;
+        return Instantiate(piece, pos, rot, PiecesParent);
+    }
 
     //public GameObject SpawnAlienNest(int x, int y, float height, GameObject obj)
     //{
@@ -390,28 +396,28 @@ public class MapGenerator : MonoBehaviour
         return new Vector3(logicalpos.x + offset, FLOOR_HEIGHT, logicalpos.y + offset);
     }
 
-    //public GameObject GetClosestPiece(Vector3 pos, List<GameObject> excludeditems)
-    //{
-    //    GameObject piece = null;
-    //    float MinDistance = float.MaxValue;
-    //    float distance;
+    public GameObject GetClosestPiece(Vector3 pos, List<GameObject> excludeditems)
+    {
+        GameObject piece = null;
+        float MinDistance = float.MaxValue;
+        float distance;
 
-    //    foreach (Transform child in PiecesParent)
-    //    {
-    //        if (!excludeditems.Contains(child.gameObject))
-    //        {
-    //            distance = Vector3.Distance(pos, child.position);
-    //            //if (!child.GetComponent<Piece>().IsTaken() && distance < MinDistance)
-    //            //{
-    //            //    piece = child.gameObject;
-    //            //    MinDistance = distance;
-    //            //}
-    //        }
+        foreach (Transform child in PiecesParent)
+        {
+            if (!excludeditems.Contains(child.gameObject))
+            {
+                distance = Vector3.Distance(pos, child.position);
+                if (!child.GetComponent<PowerUp>().IsTaken() && distance < MinDistance)
+                {
+                    piece = child.gameObject;
+                    MinDistance = distance;
+                }
+            }
 
-    //    }
+        }
 
-    //    return piece;
-    //}
+        return piece;
+    }
 
     public GameObject GetClosestPlayerStart(Vector3 pos)
     {
