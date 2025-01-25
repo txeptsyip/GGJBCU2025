@@ -39,6 +39,7 @@ public class BubbleBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<PlayerScript>().Damage(damage);
+            Destroy(gameObject);
         }
     }
 }
