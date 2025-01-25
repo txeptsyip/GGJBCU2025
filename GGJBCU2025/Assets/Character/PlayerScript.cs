@@ -23,7 +23,8 @@ public class PlayerScript: MonoBehaviour
     public GameObject BubblePrefab;
     public Transform Spawner;
 
-    private bool PoweupActive = false;
+    private bool RapidFireActive = false;
+    private bool ShotBubbleActive = false;
 
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
@@ -54,7 +55,30 @@ public class PlayerScript: MonoBehaviour
 
     public void ActivatePowerUp()
     {
-        PoweupActive = true;
+        Debug.Log("rapidfire status" + RapidFireActive);
+        Debug.Log("shotbubble status" + ShotBubbleActive);
+        if (RapidFireActive == false && ShotBubbleActive == false)
+        {
+            int powerUp = Random.Range(1, 3);
+            Debug.Log(powerUp);
+            if (powerUp == 1)
+            {
+                RapidFireActive = true;
+            }
+            if (powerUp == 2)
+            {
+                ShotBubbleActive = true;
+            }
+            StartCoroutine(PowerUpTimer());
+        }
+    }
+
+    public IEnumerator PowerUpTimer()
+    {
+        yield return new WaitForSeconds(30);
+        RapidFireActive = false;
+        ShotBubbleActive = false ;
+        StopCoroutine(PowerUpTimer());
     }
 
     void Bubble_Shoot()
@@ -63,6 +87,33 @@ public class PlayerScript: MonoBehaviour
         BubblePrefab.transform.position = Spawner.transform.position;
         Rigidbody BubbleRb = Instantiate(projectile, new Vector3(Spawner.transform.position.x, Spawner.transform.position.y, Spawner.transform.position.z), Spawner.transform.rotation) as Rigidbody;
         BubbleRb.AddForce(transform.forward * 300 * Speed); // indicates the direction and level of force
+        fireDelay = Time.time + Cooldown;
+
+    }
+
+    void RapidFire_Shoot()
+    {
+        BubblePrefab.transform.position = Spawner.transform.position;
+        Rigidbody BubbleRb = Instantiate(projectile, new Vector3(Spawner.transform.position.x, Spawner.transform.position.y, Spawner.transform.position.z), Spawner.transform.rotation) as Rigidbody;
+        BubbleRb.AddForce(transform.forward * 300 * Speed); // indicates the direction and level of force
+        fireDelay = Time.time + (Cooldown/6) ;
+    }
+
+    void ShotBubble_Shoot()
+    {
+        if (Time.time < fireRate) return;
+        BubblePrefab.transform.position = Spawner.transform.position;
+        Rigidbody BubbleRb = Instantiate(projectile, new Vector3(Spawner.transform.position.x, Spawner.transform.position.y, Spawner.transform.position.z), Spawner.transform.rotation) as Rigidbody;
+        BubbleRb.AddForce(transform.forward * 300 * Speed);
+        BubblePrefab.transform.position = Spawner.transform.position;
+        Rigidbody BubbleRb1 = Instantiate(projectile, new Vector3(Spawner.transform.position.x, Spawner.transform.position.y, Spawner.transform.position.z), Spawner.transform.rotation) as Rigidbody;
+        BubbleRb1.AddForce(transform.forward * 300 * Speed);
+        BubblePrefab.transform.position = Spawner.transform.position;
+        Rigidbody BubbleRb2 = Instantiate(projectile, new Vector3(Spawner.transform.position.x, Spawner.transform.position.y, Spawner.transform.position.z), Spawner.transform.rotation) as Rigidbody;
+        BubbleRb2.AddForce(transform.forward * 300 * Speed);
+        BubblePrefab.transform.position = Spawner.transform.position;
+        Rigidbody BubbleRb3 = Instantiate(projectile, new Vector3(Spawner.transform.position.x, Spawner.transform.position.y, Spawner.transform.position.z), Spawner.transform.rotation) as Rigidbody;
+        BubbleRb3.AddForce(transform.forward * 300 * Speed);// indicates the direction and level of force
         fireDelay = Time.time + Cooldown;
 
     }
@@ -110,7 +161,18 @@ public class PlayerScript: MonoBehaviour
             // Ctrl was pressed, launch a projectile
             if (Input.GetKeyDown(KeyCode.F))
             {
-                Bubble_Shoot();
+                if (RapidFireActive == true)
+                {
+                    RapidFire_Shoot();    
+                }
+                else if (ShotBubbleActive == true)
+                {
+                    ShotBubble_Shoot();
+                }
+                else
+                { 
+                    Bubble_Shoot();
+                }
 
             }
 

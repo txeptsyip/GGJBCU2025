@@ -21,6 +21,15 @@ public class PowerUp : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<PlayerScript>().ActivatePowerUp();
+            Destroy(gameObject);
+        }
+    }
+
     public bool IsTaken()
     {
         return isTaken;

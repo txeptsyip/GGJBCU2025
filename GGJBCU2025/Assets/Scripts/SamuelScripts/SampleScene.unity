@@ -687,7 +687,7 @@ MonoBehaviour:
   Map: {fileID: 219449626}
   Piece: {fileID: 5735847813507292681, guid: 7320c54a59be04b42bb00cea40f4ef41, type: 3}
   Height: 30
-  PiecesPerSecond: 1
+  PowerUpsPerSpawn: 2
 --- !u!4 &950393588
 Transform:
   m_ObjectHideFlags: 0
