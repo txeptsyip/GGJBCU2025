@@ -26,6 +26,8 @@ public class Player2Script : MonoBehaviour
 
     GameManager gameManager;
 
+    private bool damaged = false;
+
     private bool RapidFireActive = false;
     private bool ShotBubbleActive = false;
 
@@ -47,18 +49,32 @@ public class Player2Script : MonoBehaviour
         //Cursor.visible = false;
     }
 
+    private IEnumerator Damaged()
+    {
+        yield return new WaitForEndOfFrame();
+        damaged = false;
+        Debug.Log(damaged);
+        StopCoroutine(Damaged());
+    }
+
     public void Damage(float damage)
     {
-        health = health - damage;
-        Debug.Log(health);
-        Player2Hits.text = health.ToString();
-        if (health <= 0)
+        if (!damaged)
         {
-            Debug.Log("the player has died");
-            Destroy(gameObject);
-            gameManager.Player1Win = true;
-            gameManager.winner = true;
+            health = health - damage;
+            Debug.Log(health);
+            Player2Hits.text = health.ToString();
+            damaged = true;
+            Debug.Log(damaged);
+            StartCoroutine(Damaged());
+            if (health <= 0)
+            {
+                Debug.Log("the player has died");
+                Destroy(gameObject);
+                gameManager.Player1Win = true;
+                gameManager.winner = true;
 
+            }
         }
     }
 
