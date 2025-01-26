@@ -399,7 +399,7 @@ GameObject:
   - component: {fileID: 798028138}
   - component: {fileID: 798028140}
   - component: {fileID: 798028139}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -420,10 +420,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1365483931}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -4, y: 24}
-  m_SizeDelta: {x: -674, y: 100}
+  m_SizeDelta: {x: 198, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &798028139
 MonoBehaviour:
@@ -520,7 +520,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Replay
+  m_text: Restart
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
