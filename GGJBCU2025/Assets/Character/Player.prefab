@@ -270,8 +270,8 @@ MonoBehaviour:
   Cooldown: 1
   BubblePrefab: {fileID: 8359671636143119422, guid: 4b415a8991e998e43a31b1c7a181f2a5, type: 3}
   Spawner: {fileID: 125430291248395372}
-  Player1Hits: {fileID: 6858117550313341220, guid: 1ed084f7fbe2e8248ab1a3ce1635b938, type: 3}
   canMove: 1
+  Player1Hits: {fileID: 0}
 --- !u!1001 &5476460113745834799
 PrefabInstance:
   m_ObjectHideFlags: 0

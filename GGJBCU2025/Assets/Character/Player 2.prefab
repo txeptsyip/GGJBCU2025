@@ -265,11 +265,12 @@ MonoBehaviour:
   gravity: 20
   lookSpeed: 1
   health: 10
-  Speed: 1
+  Speed: 10
   projectile: {fileID: 4623812221302528764, guid: 4b415a8991e998e43a31b1c7a181f2a5, type: 3}
   Cooldown: 1
   BubblePrefab: {fileID: 8359671636143119422, guid: 4b415a8991e998e43a31b1c7a181f2a5, type: 3}
   Spawner: {fileID: 125430291248395372}
+  Player2Hits: {fileID: 0}
   canMove: 1
 --- !u!1001 &4761258949825664903
 PrefabInstance:
