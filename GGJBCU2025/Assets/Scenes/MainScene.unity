@@ -148,15 +148,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f0d02864bae0d147ba4abc2592c0728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FLOOR_HEIGHT: 0
+  FLOOR_HEIGHT: 1
   Size: 38
   NoiseFactor: 0.25
-  MountainThreshold: 0.7
+  WallThreshold: 0.7
   SpaceshipCornerOffset: 10
   SpaceshipPlaneRadius: 5
   ObstaclesParent: {fileID: 1691439520}
   OthersParent: {fileID: 746871696}
-  Mountains: {fileID: 5568210241363139127, guid: 2e1f916c35c722748989a04b49db5c3f, type: 3}
+  Walls: {fileID: 5568210241363139127, guid: 2e1f916c35c722748989a04b49db5c3f, type: 3}
   PlayerStart: {fileID: 4465781977450918157, guid: 0493b54f469993d48929629e14c5d361, type: 3}
   Player1: {fileID: 8384183362932967418, guid: 5c5d7fe21f44ae949b31c99570a97514, type: 3}
   Player2: {fileID: 8384183362932967418, guid: 897715fc51b03934590aab23e70d28c3, type: 3}
