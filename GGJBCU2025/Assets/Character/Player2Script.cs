@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -24,10 +25,12 @@ public class Player2Script : MonoBehaviour
     public Transform Spawner;
 
     GameManager gameManager;
+
     private bool RapidFireActive = false;
     private bool ShotBubbleActive = false;
 
     CharacterController characterController;
+    public TMP_Text Player2Hits;
     Vector3 moveDirection = Vector3.zero;
     float rotationX = 0;
 
@@ -38,6 +41,7 @@ public class Player2Script : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>(); 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Player2Hits = GameObject.Find("Lives2").GetComponent<TMP_Text>(); 
         // Lock cursor
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
@@ -47,11 +51,14 @@ public class Player2Script : MonoBehaviour
     {
         health = health - damage;
         Debug.Log(health);
+        Player2Hits.text = health.ToString();
         if (health <= 0)
         {
             Debug.Log("the player has died");
             Destroy(gameObject);
+            gameManager.Player1Win = true;
             gameManager.winner = true;
+
         }
     }
 
@@ -101,13 +108,6 @@ public class Player2Script : MonoBehaviour
         fireDelay = Time.time + (Cooldown / 6);
     }
 
-    public void WinCheck() // checks if winner is equal to true
-    {
-        if (gameManager.winner == true)
-        {
-            gameManager.Win();
-        }
-    }
         void ShotBubble_Shoot()
     {
         if (Time.time < fireRate) return;
@@ -186,6 +186,5 @@ public class Player2Script : MonoBehaviour
             }
 
         }
-        WinCheck();
     }
 }

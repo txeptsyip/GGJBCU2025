@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -23,6 +24,9 @@ public class PlayerScript: MonoBehaviour
     public GameObject BubblePrefab;
     public Transform Spawner;
 
+
+
+
     private bool RapidFireActive = false;
     private bool ShotBubbleActive = false;
     GameManager gameManager;
@@ -32,11 +36,13 @@ public class PlayerScript: MonoBehaviour
 
     [HideInInspector]
     public bool canMove = true;
+    public TMP_Text Player1Hits;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Player1Hits = GameObject.Find("Lives2").GetComponent<TMP_Text>();
         // Lock cursor
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
@@ -45,11 +51,14 @@ public class PlayerScript: MonoBehaviour
     public void Damage(float damage)
     {
         health = health - damage;
+        Player1Hits.text = health.ToString();
         Debug.Log(health);
+
         if (health <= 0)
         {
             Debug.Log("the player has died");
             Destroy(gameObject);
+            gameManager.Player2Win = true;
             gameManager.winner = true;
 
         }
@@ -101,13 +110,6 @@ public class PlayerScript: MonoBehaviour
         fireDelay = Time.time + (Cooldown/6) ;
     }
 
-    public void WinCheck() // checks if winner is equal to true
-    {
-        if (gameManager.winner == true) {
-            gameManager.Win();
-        }
-    
-    }
     void ShotBubble_Shoot()
     {
         if (Time.time < fireRate) return;
@@ -129,6 +131,7 @@ public class PlayerScript: MonoBehaviour
 
     void Update()
     {
+        
         // We are grounded, so recalculate move direction based on axes
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
@@ -187,6 +190,5 @@ public class PlayerScript: MonoBehaviour
             }
 
         }
-        WinCheck();
     }
 }
