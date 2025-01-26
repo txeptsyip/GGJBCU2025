@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793f32e022f758a438c761e24e55d556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winner: 0
+  WinText: {fileID: 7909518535201659776, guid: da0e5b8a875c7794cb10e095843af9b7, type: 3}
+  Player1: {fileID: 1617521298249853555, guid: 5c5d7fe21f44ae949b31c99570a97514, type: 3}
+  Player2: {fileID: 3495470737173167425, guid: 897715fc51b03934590aab23e70d28c3, type: 3}
