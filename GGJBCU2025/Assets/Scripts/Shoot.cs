@@ -33,7 +33,7 @@ public class Shoot : MonoBehaviour
         if (Time.time > fireDelay)
         {
             // Ctrl was pressed, launch a projectile
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 Bubble_Shoot();
 
