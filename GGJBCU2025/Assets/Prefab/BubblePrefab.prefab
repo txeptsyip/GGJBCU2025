@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 8359671636143119422}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 36.22747, y: 1.0879998, z: -16.226948}
+  m_LocalPosition: {x: 27.859663, y: 1.0879998, z: 0.3111725}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -125,9 +125,6 @@ MonoBehaviour:
   lifetime: 1.5
   floatStrength: 5
   damage: 1
-  Player1Hits: {fileID: 0}
-  Player2Hits: {fileID: 0}
-  PS: {fileID: 0}
 --- !u!54 &4623812221302528764
 Rigidbody:
   m_ObjectHideFlags: 0
