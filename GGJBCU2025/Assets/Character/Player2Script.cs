@@ -36,7 +36,6 @@ public class Player2Script : MonoBehaviour
 
     CharacterController characterController;
     public TMP_Text Player2Hits;
-    public TMP_Text powerup;
     Vector3 moveDirection = Vector3.zero;
     float rotationX = 0;
 
@@ -45,10 +44,9 @@ public class Player2Script : MonoBehaviour
 
     void Start()
     {
-        characterController = GetComponent<CharacterController>(); 
+        characterController = GetComponent<CharacterController>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         Player2Hits = GameObject.Find("Lives2").GetComponent<TMP_Text>();
-        powerup = GameObject.Find("Powerup2").GetComponent<TMP_Text>();
         // Lock cursor
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
@@ -95,12 +93,10 @@ public class Player2Script : MonoBehaviour
             if (powerUp == 1)
             {
                 RapidFireActive = true;
-                powerup.text = "Rapid Fire";
             }
             if (powerUp == 2)
             {
                 ShotBubbleActive = true;
-                powerup.text = "Shot-Bubble";
             }
             StartCoroutine(PowerUpTimer());
         }
@@ -112,7 +108,6 @@ public class Player2Script : MonoBehaviour
         RapidFireActive = false;
         ShotBubbleActive = false;
         StopCoroutine(PowerUpTimer());
-        powerup.text = "";
     }
 
     void Bubble_Shoot()
@@ -133,7 +128,7 @@ public class Player2Script : MonoBehaviour
         fireDelay = Time.time + (Cooldown / 6);
     }
 
-        void ShotBubble_Shoot()
+    void ShotBubble_Shoot()
     {
         if (Time.time < fireRate) return;
         BubblePrefab.transform.position = Spawner.transform.position;

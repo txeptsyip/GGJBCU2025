@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 
-public class PlayerScript: MonoBehaviour
+public class PlayerScript : MonoBehaviour
 {
     public float walkingSpeed = 7.5f;
     public float runningSpeed = 11.5f;
@@ -24,7 +25,10 @@ public class PlayerScript: MonoBehaviour
     public GameObject BubblePrefab;
     public Transform Spawner;
 
+    private bool damaged = false;
 
+    [SerializeField]
+    private AudioSource hurt;
 
 
     private bool RapidFireActive = false;
@@ -37,32 +41,46 @@ public class PlayerScript: MonoBehaviour
     [HideInInspector]
     public bool canMove = true;
     public TMP_Text Player1Hits;
-    public TMP_Text powerup;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        Player1Hits = GameObject.Find("Lives2").GetComponent<TMP_Text>();
-        powerup = GameObject.Find("Powerup").GetComponent<TMP_Text>();
+        Player1Hits = GameObject.Find("Lives").GetComponent<TMP_Text>();
         // Lock cursor
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
     }
 
+    private IEnumerator Damaged()
+    {
+        yield return new WaitForEndOfFrame();
+        damaged = false;
+        Debug.Log(damaged);
+        StopCoroutine(Damaged());
+    }
+
     public void Damage(float damage)
     {
-        health = health - damage;
-        Player1Hits.text = health.ToString();
-        Debug.Log(health);
-
-        if (health <= 0)
+        if (damaged == false)
         {
-            Debug.Log("the player has died");
-            Destroy(gameObject);
-            gameManager.Player2Win = true;
-            gameManager.winner = true;
+            hurt.Play();
+            health = health - damage;
+            Player1Hits.text = health.ToString();
+            Debug.Log(health);
+            damaged = true;
+            Debug.Log(damaged);
+            StartCoroutine(Damaged());
 
+
+            if (health <= 0)
+            {
+                Debug.Log("the player has died");
+                Destroy(gameObject);
+                gameManager.Player2Win = true;
+                gameManager.winner = true;
+
+            }
         }
     }
 
@@ -77,12 +95,10 @@ public class PlayerScript: MonoBehaviour
             if (powerUp == 1)
             {
                 RapidFireActive = true;
-                powerup.text = "Rapid Fire";
             }
             if (powerUp == 2)
             {
                 ShotBubbleActive = true;
-                powerup.text = "Shot-Bubble";
             }
             StartCoroutine(PowerUpTimer());
         }
@@ -92,9 +108,8 @@ public class PlayerScript: MonoBehaviour
     {
         yield return new WaitForSeconds(10);
         RapidFireActive = false;
-        ShotBubbleActive = false ;
+        ShotBubbleActive = false;
         StopCoroutine(PowerUpTimer());
-        powerup.text = "";
     }
 
     void Bubble_Shoot()
@@ -112,7 +127,7 @@ public class PlayerScript: MonoBehaviour
         BubblePrefab.transform.position = Spawner.transform.position;
         Rigidbody BubbleRb = Instantiate(projectile, new Vector3(Spawner.transform.position.x, Spawner.transform.position.y, Spawner.transform.position.z), Spawner.transform.rotation) as Rigidbody;
         BubbleRb.AddForce(transform.forward * 100 * Speed); // indicates the direction and level of force
-        fireDelay = Time.time + (Cooldown/6) ;
+        fireDelay = Time.time + (Cooldown / 6);
     }
 
     void ShotBubble_Shoot()
@@ -136,7 +151,7 @@ public class PlayerScript: MonoBehaviour
 
     void Update()
     {
-        
+
         // We are grounded, so recalculate move direction based on axes
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
@@ -171,7 +186,7 @@ public class PlayerScript: MonoBehaviour
         if (canMove)
         {
             //playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-            transform.rotation *= Quaternion.Euler(0, (Input.GetAxis("Horizontal"))/6 * lookSpeed, 0);
+            transform.rotation *= Quaternion.Euler(0, (Input.GetAxis("Horizontal")) / 8 * lookSpeed, 0);
         }
         if (Time.time > fireDelay)
         {
@@ -180,17 +195,17 @@ public class PlayerScript: MonoBehaviour
             {
                 if (RapidFireActive == true)
                 {
-                    RapidFire_Shoot();    
+                    RapidFire_Shoot();
                 }
                 else if (ShotBubbleActive == true)
                 {
                     ShotBubble_Shoot();
                 }
                 else
-                { 
+                {
                     Bubble_Shoot();
                 }
-               
+
 
             }
 
