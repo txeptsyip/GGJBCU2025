@@ -115,7 +115,7 @@ public class Player2Script : MonoBehaviour
         if (Time.time < fireRate) return;
         BubblePrefab.transform.position = Spawner.transform.position;
         Rigidbody BubbleRb = Instantiate(projectile, new Vector3(Spawner.transform.position.x, Spawner.transform.position.y, Spawner.transform.position.z), Spawner.transform.rotation) as Rigidbody;
-        BubbleRb.AddForce(transform.forward * 300 * Speed); // indicates the direction and level of force
+        BubbleRb.AddForce(transform.forward * 100 * Speed); // indicates the direction and level of force
         fireDelay = Time.time + Cooldown;
 
     }
@@ -124,7 +124,7 @@ public class Player2Script : MonoBehaviour
     {
         BubblePrefab.transform.position = Spawner.transform.position;
         Rigidbody BubbleRb = Instantiate(projectile, new Vector3(Spawner.transform.position.x, Spawner.transform.position.y, Spawner.transform.position.z), Spawner.transform.rotation) as Rigidbody;
-        BubbleRb.AddForce(transform.forward * 300 * Speed); // indicates the direction and level of force
+        BubbleRb.AddForce(transform.forward * 100 * Speed); // indicates the direction and level of force
         fireDelay = Time.time + (Cooldown / 6);
     }
 
@@ -133,16 +133,16 @@ public class Player2Script : MonoBehaviour
         if (Time.time < fireRate) return;
         BubblePrefab.transform.position = Spawner.transform.position;
         Rigidbody BubbleRb = Instantiate(projectile, new Vector3(Spawner.transform.position.x, Spawner.transform.position.y, Spawner.transform.position.z), Spawner.transform.rotation) as Rigidbody;
-        BubbleRb.AddForce(transform.forward * 300 * Speed);
+        BubbleRb.AddForce(transform.forward * 100 * Speed);
         BubblePrefab.transform.position = Spawner.transform.position;
         Rigidbody BubbleRb1 = Instantiate(projectile, new Vector3(Spawner.transform.position.x, Spawner.transform.position.y, Spawner.transform.position.z), Spawner.transform.rotation) as Rigidbody;
-        BubbleRb1.AddForce(transform.forward * 300 * Speed);
+        BubbleRb1.AddForce(transform.forward * 100 * Speed);
         BubblePrefab.transform.position = Spawner.transform.position;
         Rigidbody BubbleRb2 = Instantiate(projectile, new Vector3(Spawner.transform.position.x, Spawner.transform.position.y, Spawner.transform.position.z), Spawner.transform.rotation) as Rigidbody;
-        BubbleRb2.AddForce(transform.forward * 300 * Speed);
+        BubbleRb2.AddForce(transform.forward * 100 * Speed);
         BubblePrefab.transform.position = Spawner.transform.position;
         Rigidbody BubbleRb3 = Instantiate(projectile, new Vector3(Spawner.transform.position.x, Spawner.transform.position.y, Spawner.transform.position.z), Spawner.transform.rotation) as Rigidbody;
-        BubbleRb3.AddForce(transform.forward * 300 * Speed);// indicates the direction and level of force
+        BubbleRb3.AddForce(transform.forward * 100 * Speed);// indicates the direction and level of force
         fireDelay = Time.time + Cooldown;
 
     }
