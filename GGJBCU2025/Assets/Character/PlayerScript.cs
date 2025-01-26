@@ -25,7 +25,7 @@ public class PlayerScript: MonoBehaviour
 
     private bool RapidFireActive = false;
     private bool ShotBubbleActive = false;
-
+    GameManager gameManager;
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
     float rotationX = 0;
@@ -36,7 +36,7 @@ public class PlayerScript: MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         // Lock cursor
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
@@ -50,6 +50,8 @@ public class PlayerScript: MonoBehaviour
         {
             Debug.Log("the player has died");
             Destroy(gameObject);
+            gameManager.winner = true;
+
         }
     }
 
@@ -99,6 +101,13 @@ public class PlayerScript: MonoBehaviour
         fireDelay = Time.time + (Cooldown/6) ;
     }
 
+    public void WinCheck() // checks if winner is equal to true
+    {
+        if (gameManager.winner == true) {
+            gameManager.Win();
+        }
+    
+    }
     void ShotBubble_Shoot()
     {
         if (Time.time < fireRate) return;
@@ -173,9 +182,11 @@ public class PlayerScript: MonoBehaviour
                 { 
                     Bubble_Shoot();
                 }
+               
 
             }
 
         }
+        WinCheck();
     }
 }

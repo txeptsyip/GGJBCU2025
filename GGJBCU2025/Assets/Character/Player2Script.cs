@@ -23,6 +23,7 @@ public class Player2Script : MonoBehaviour
     public GameObject BubblePrefab;
     public Transform Spawner;
 
+    GameManager gameManager;
     private bool RapidFireActive = false;
     private bool ShotBubbleActive = false;
 
@@ -35,8 +36,8 @@ public class Player2Script : MonoBehaviour
 
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
-
+        characterController = GetComponent<CharacterController>(); 
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         // Lock cursor
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
@@ -50,6 +51,7 @@ public class Player2Script : MonoBehaviour
         {
             Debug.Log("the player has died");
             Destroy(gameObject);
+            gameManager.winner = true;
         }
     }
 
@@ -99,7 +101,14 @@ public class Player2Script : MonoBehaviour
         fireDelay = Time.time + (Cooldown / 6);
     }
 
-    void ShotBubble_Shoot()
+    public void WinCheck() // checks if winner is equal to true
+    {
+        if (gameManager.winner == true)
+        {
+            gameManager.Win();
+        }
+    }
+        void ShotBubble_Shoot()
     {
         if (Time.time < fireRate) return;
         BubblePrefab.transform.position = Spawner.transform.position;
@@ -177,5 +186,6 @@ public class Player2Script : MonoBehaviour
             }
 
         }
+        WinCheck();
     }
 }
