@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75af295268273924e85fbc8ee32a98b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 1.5
+  lifetime: 3
   floatStrength: 5
   damage: 1
   Player1Hits: {fileID: 0}
