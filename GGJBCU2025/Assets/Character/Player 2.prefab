@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3010806230316758919}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.011431694, y: -0.09200001, z: 1.5600002}
+  m_LocalPosition: {x: 0.01, y: -0.09200001, z: 1.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 5499653356899250907}
   - component: {fileID: 1126832330543288693}
   - component: {fileID: 3495470737173167425}
+  - component: {fileID: 1674115312388303565}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: Player2
@@ -177,7 +178,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: dd7e2994c34055148b41640fc5173430, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -218,7 +219,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.89
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -265,12 +266,111 @@ MonoBehaviour:
   gravity: 20
   lookSpeed: 1
   health: 10
-  Speed: 1
+  Speed: 10
   projectile: {fileID: 4623812221302528764, guid: 4b415a8991e998e43a31b1c7a181f2a5, type: 3}
   Cooldown: 1
   BubblePrefab: {fileID: 8359671636143119422, guid: 4b415a8991e998e43a31b1c7a181f2a5, type: 3}
   Spawner: {fileID: 125430291248395372}
+  hurt: {fileID: 1674115312388303565}
+  Player2Hits: {fileID: 0}
   canMove: 1
+--- !u!82 &1674115312388303565
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8384183362932967418}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 1dc41c4d62d003f429a0f2c9a976b9e9, type: 3}
+  m_Resource: {fileID: 8300000, guid: 1dc41c4d62d003f429a0f2c9a976b9e9, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.6
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &4761258949825664903
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -338,7 +438,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: f6db20a3de5e1f04097982b39093589e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0278b377562592d439c3af78113f8aaa, type: 2}
+      objectReference: {fileID: 2100000, guid: dd7e2994c34055148b41640fc5173430, type: 2}
     - target: {fileID: 919132149155446097, guid: f6db20a3de5e1f04097982b39093589e, type: 3}
       propertyPath: m_Name
       value: 3D Rubber Duck Pack - Duck
