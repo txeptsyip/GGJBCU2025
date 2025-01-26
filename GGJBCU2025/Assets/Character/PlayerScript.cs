@@ -27,6 +27,9 @@ public class PlayerScript: MonoBehaviour
 
     private bool damaged = false;
 
+    [SerializeField]
+    private AudioSource hurt;
+
 
     private bool RapidFireActive = false;
     private bool ShotBubbleActive = false;
@@ -61,6 +64,7 @@ public class PlayerScript: MonoBehaviour
     {
         if (damaged == false)
         {
+            hurt.Play();
             health = health - damage;
             Player1Hits.text = health.ToString();
             Debug.Log(health);
@@ -182,7 +186,7 @@ public class PlayerScript: MonoBehaviour
         if (canMove)
         {
             //playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-            transform.rotation *= Quaternion.Euler(0, (Input.GetAxis("Horizontal"))/6 * lookSpeed, 0);
+            transform.rotation *= Quaternion.Euler(0, (Input.GetAxis("Horizontal"))/8 * lookSpeed, 0);
         }
         if (Time.time > fireDelay)
         {
