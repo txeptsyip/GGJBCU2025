@@ -26,6 +26,11 @@ public class Player2Script : MonoBehaviour
 
     GameManager gameManager;
 
+    private bool damaged = false;
+
+    [SerializeField]
+    private AudioSource hurt;
+
     private bool RapidFireActive = false;
     private bool ShotBubbleActive = false;
 
@@ -47,18 +52,33 @@ public class Player2Script : MonoBehaviour
         //Cursor.visible = false;
     }
 
+    private IEnumerator Damaged()
+    {
+        yield return new WaitForEndOfFrame();
+        damaged = false;
+        Debug.Log(damaged);
+        StopCoroutine(Damaged());
+    }
+
     public void Damage(float damage)
     {
-        health = health - damage;
-        Debug.Log(health);
-        Player2Hits.text = health.ToString();
-        if (health <= 0)
+        if (!damaged)
         {
-            Debug.Log("the player has died");
-            Destroy(gameObject);
-            gameManager.Player1Win = true;
-            gameManager.winner = true;
+            hurt.Play();
+            health = health - damage;
+            Debug.Log(health);
+            Player2Hits.text = health.ToString();
+            damaged = true;
+            Debug.Log(damaged);
+            StartCoroutine(Damaged());
+            if (health <= 0)
+            {
+                Debug.Log("the player has died");
+                Destroy(gameObject);
+                gameManager.Player1Win = true;
+                gameManager.winner = true;
 
+            }
         }
     }
 
@@ -163,7 +183,7 @@ public class Player2Script : MonoBehaviour
         if (canMove)
         {
             //playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-            transform.rotation *= Quaternion.Euler(0, (Input.GetAxis("HorizontalSticks")) / 6 * lookSpeed, 0);
+            transform.rotation *= Quaternion.Euler(0, (Input.GetAxis("HorizontalSticks")) / 8 * lookSpeed, 0);
         }
         if (Time.time > fireDelay)
         {

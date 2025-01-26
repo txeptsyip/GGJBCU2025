@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
      public void Win() // transisions to winning scene
     {
         SceneManager.LoadScene(2);
+        winner = false;
+        
         if (Player1Win == true)
         {
             Debug.Log("Congratulations Player 1 Duck");
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame() { // reset to the games title screen
         SceneManager.LoadScene(0);
+        Debug.Log("reset presses i guess");
     }
 
     // Update is called once per frame

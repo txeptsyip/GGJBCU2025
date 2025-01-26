@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -24,7 +25,10 @@ public class PlayerScript: MonoBehaviour
     public GameObject BubblePrefab;
     public Transform Spawner;
 
+    private bool damaged = false;
 
+    [SerializeField]
+    private AudioSource hurt;
 
 
     private bool RapidFireActive = false;
@@ -42,25 +46,41 @@ public class PlayerScript: MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        Player1Hits = GameObject.Find("Lives2").GetComponent<TMP_Text>();
+        Player1Hits = GameObject.Find("Lives").GetComponent<TMP_Text>();
         // Lock cursor
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
     }
 
+    private IEnumerator Damaged()
+    {
+        yield return new WaitForEndOfFrame();
+        damaged = false;
+        Debug.Log(damaged);
+        StopCoroutine(Damaged());
+    }
+
     public void Damage(float damage)
     {
-        health = health - damage;
-        Player1Hits.text = health.ToString();
-        Debug.Log(health);
-
-        if (health <= 0)
+        if (damaged == false)
         {
-            Debug.Log("the player has died");
-            Destroy(gameObject);
-            gameManager.Player2Win = true;
-            gameManager.winner = true;
+            hurt.Play();
+            health = health - damage;
+            Player1Hits.text = health.ToString();
+            Debug.Log(health);
+            damaged = true;
+            Debug.Log(damaged);
+            StartCoroutine (Damaged());
 
+
+            if (health <= 0)
+            {
+                Debug.Log("the player has died");
+                Destroy(gameObject);
+                gameManager.Player2Win = true;
+                gameManager.winner = true;
+
+            }
         }
     }
 
@@ -166,7 +186,7 @@ public class PlayerScript: MonoBehaviour
         if (canMove)
         {
             //playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-            transform.rotation *= Quaternion.Euler(0, (Input.GetAxis("Horizontal"))/6 * lookSpeed, 0);
+            transform.rotation *= Quaternion.Euler(0, (Input.GetAxis("Horizontal"))/8 * lookSpeed, 0);
         }
         if (Time.time > fireDelay)
         {
