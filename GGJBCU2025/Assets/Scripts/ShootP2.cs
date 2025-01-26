@@ -10,6 +10,7 @@ public class ShootP2 : MonoBehaviour
     public float Cooldown;
     public GameObject BubblePrefab;
     public Transform Spawner;
+    public bool isController = true;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -34,15 +35,29 @@ public class ShootP2 : MonoBehaviour
 
         if (Time.time > fireDelay)
         {
-            // Ctrl was pressed, launch a projectile
-            if (Input.GetAxis("Fire3") > 0.8)
+            if (isController)
             {
-                Bubble_Shoot();
+
+
+                // Ctrl was pressed, launch a projectile
+                if (Input.GetAxis("Fire3") > 0.8)
+                {
+                    Bubble_Shoot();
+                }
+
+
+
+
+
             }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.Comma))
+                {
+                    Bubble_Shoot();
+                }
 
-
-            
-
+            }
         }
     }
 }

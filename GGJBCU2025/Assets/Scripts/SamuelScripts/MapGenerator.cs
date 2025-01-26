@@ -20,7 +20,7 @@ public class MapGenerator : MonoBehaviour
     private float NoiseFactor = 0.07f;
 
     [SerializeField, Range(0, 1)]
-    private float MountainThreshold = 0.6f;
+    private float WallThreshold = 0.6f;
 
     [SerializeField]
     private int SpaceshipCornerOffset = 10;
@@ -35,7 +35,7 @@ public class MapGenerator : MonoBehaviour
     private Transform OthersParent;
 
     [SerializeField]
-    private GameObject Mountains;
+    private GameObject Walls;
 
     [SerializeField]
     private GameObject PlayerStart;
@@ -54,7 +54,7 @@ public class MapGenerator : MonoBehaviour
 
     private float RANDOM;
 
-    public enum MapElement { Ground, Mountain, PlayerStart };
+    public enum MapElement { Ground, Wall, PlayerStart };
 
     private MapElement[][] Map;
 
@@ -167,18 +167,18 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        //Add Mountains
+        //Add Walls
         for (int i = 0; i < NCellsW; i++)
         {
             for (int j = 0; j < NCells; j++)
             {
                 if (i == 0 || i == NCellsW - 1 || j == 0 || j == NCells - 1)
                 {
-                    Map[i][j] = MapElement.Mountain;
+                    Map[i][j] = MapElement.Wall;
                 }
-                else if (ShouldCreateMountain(i, j))
+                else if (ShouldCreateWall(i, j))
                 {
-                    Map[i][j] = MapElement.Mountain;
+                    Map[i][j] = MapElement.Wall;
                 }
             }
         }
@@ -194,9 +194,9 @@ public class MapGenerator : MonoBehaviour
 
     }
 
-    private bool ShouldCreateMountain(int x, int y)
+    private bool ShouldCreateWall(int x, int y)
     {
-        return Mathf.PerlinNoise(x * NoiseFactor + RANDOM, y * NoiseFactor + RANDOM) > MountainThreshold;
+        return Mathf.PerlinNoise(x * NoiseFactor + RANDOM, y * NoiseFactor + RANDOM) > WallThreshold;
     }
 
     private void CreatePhysicalMap()
@@ -210,16 +210,16 @@ public class MapGenerator : MonoBehaviour
             {
                 switch (Map[i][j])
                 {
-                    case MapElement.Mountain:
+                    case MapElement.Wall:
                         {
-                            GameObject mountain = SpawnMountain(i, j, Mountains);
-                            if (!IsInteriorMountain(i, j))
+                            GameObject wall = SpawnWall(i, j, Walls);
+                            if (!IsInteriorWall(i, j))
                             {
-                                //mountain.GetComponent<Obstacle>().ChangeMesh();
+                                //dothings
                             }
                             else
                             {
-                                Destroy(mountain.GetComponent<NavMeshObstacle>());
+                                Destroy(wall.GetComponent<NavMeshObstacle>());
                             }
                         }
                         break;
@@ -229,7 +229,7 @@ public class MapGenerator : MonoBehaviour
 
                             if (nplayer == 0)
                             {
-                                SpawnOther(i + 5, j, FLOOR_HEIGHT, Player1);
+                                SpawnOther(i + 5, j, FLOOR_HEIGHT +1, Player1);
                             }
                             else
                             {
@@ -244,7 +244,7 @@ public class MapGenerator : MonoBehaviour
             }
         }
     }
-    public bool IsInteriorMountain(int x, int y)
+    public bool IsInteriorWall(int x, int y)
     {
         bool isinterior = true;
 
@@ -278,13 +278,13 @@ public class MapGenerator : MonoBehaviour
                 return true;
             }
 
-            isinterior = isinterior && IsMountain(nx, ny);
+            isinterior = isinterior && IsWall(nx, ny);
         }
 
         return isinterior;
     }
 
-    public GameObject SpawnMountain(int x, int y, GameObject obj)
+    public GameObject SpawnWall(int x, int y, GameObject obj)
     {
         return Spawn(x, y, FLOOR_HEIGHT, obj, ObstaclesParent);
     }
@@ -299,17 +299,6 @@ public class MapGenerator : MonoBehaviour
         Quaternion rot = Quaternion.identity;
         return Instantiate(piece, pos, rot, PiecesParent);
     }
-
-    //public GameObject SpawnAlienNest(int x, int y, float height, GameObject obj)
-    //{
-    //    return Spawn(x, y, height, obj, AlienNestsParent);
-    //}
-
-    //public GameObject SpawnAlien(Vector3 pos, GameObject obj)
-    //{
-    //    Quaternion rot = Quaternion.identity;
-    //    return Instantiate(obj, pos, rot, AliensParent);
-    //}
 
     public GameObject SpawnOther(int x, int y, float height, GameObject obj)
     {
@@ -362,7 +351,7 @@ public class MapGenerator : MonoBehaviour
 
     public bool IsInMap(int x, int y)
     {
-        return !(Map == null || x < 0 || x >= NCells || y < 0 || y >= NCells);
+        return !(Map == null || x < 0 || x >= NCellsW || y < 0 || y >= NCells);
     }
 
     public bool IsGround(int x, int y)
@@ -370,9 +359,9 @@ public class MapGenerator : MonoBehaviour
         return IsInMap(x, y) && Map[x][y] == MapElement.Ground;
     }
 
-    public bool IsMountain(int x, int y)
+    public bool IsWall(int x, int y)
     {
-        return IsInMap(x, y) && Map[x][y] == MapElement.Mountain;
+        return IsInMap(x, y) && Map[x][y] == MapElement.Wall;
     }
 
     public Vector2 GetRandomPosition()
@@ -381,7 +370,7 @@ public class MapGenerator : MonoBehaviour
 
         do
         {
-            x = Random.Range(0, NCells);
+            x = Random.Range(0, NCellsW);
             y = Random.Range(0, NCells);
         } while (!IsGround(x, y));
 

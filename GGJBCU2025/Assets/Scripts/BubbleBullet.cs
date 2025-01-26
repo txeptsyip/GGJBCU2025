@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class BubbleBullet : MonoBehaviour
@@ -7,6 +8,9 @@ public class BubbleBullet : MonoBehaviour
 
     public float floatStrength = 5;
     public float damage = 1;
+    public TextMeshProUGUI Player1Hits;
+    public TextMeshProUGUI Player2Hits;
+    public PlayerScript PS;
 
     private int movement;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,6 +40,10 @@ public class BubbleBullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<PlayerScript>().Damage(damage);
