@@ -41,12 +41,14 @@ public class PlayerScript : MonoBehaviour
     [HideInInspector]
     public bool canMove = true;
     public TMP_Text Player1Hits;
+    public TMP_Text powerup;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         Player1Hits = GameObject.Find("Lives").GetComponent<TMP_Text>();
+        powerup = GameObject.Find("Powerup").GetComponent<TMP_Text>();
         // Lock cursor
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
@@ -95,10 +97,12 @@ public class PlayerScript : MonoBehaviour
             if (powerUp == 1)
             {
                 RapidFireActive = true;
+                powerup.text = "Rapid Fire";
             }
             if (powerUp == 2)
             {
                 ShotBubbleActive = true;
+                powerup.text = "Shot-Bubble";
             }
             StartCoroutine(PowerUpTimer());
         }
@@ -110,6 +114,7 @@ public class PlayerScript : MonoBehaviour
         RapidFireActive = false;
         ShotBubbleActive = false;
         StopCoroutine(PowerUpTimer());
+        powerup.text = "";
     }
 
     void Bubble_Shoot()
