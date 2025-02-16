@@ -1,1 +1,1 @@
-can be found here https://globalgamejam.org/jam-sites/2025/birmingham-city-university-ggj25
+can be found here https://globalgamejam.org/games/2025/bubble-battle-6-0
